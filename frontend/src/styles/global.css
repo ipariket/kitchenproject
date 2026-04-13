@@ -1,0 +1,117 @@
+/**
+ * Global styles for KitchenShare React app.
+ *
+ * Color palette (from your index7.html + styles.css):
+ *   --beige:      #f5efe3    (page background)
+ *   --cream:      #fffdf8    (card/box backgrounds)
+ *   --green-dark: #1f5c3f    (primary accent, buttons, center panel)
+ *   --green-light:#5A9F68    (secondary green from newKitchen.html)
+ *   --border:     #ddd2bf    (card borders)
+ *   --text:       #111       (primary text)
+ *   --muted:      #555       (secondary text)
+ *
+ * Typography: DM Sans (body) + Playfair Display (headings)
+ * loaded via public/index.html <link> tag.
+ */
+
+/* ── CSS Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── CSS Variables (design tokens) ── */
+:root {
+  --bg:           #f5efe3;
+  --cream:        #fffdf8;
+  --green-dark:   #1f5c3f;
+  --green-light:  #5A9F68;
+  --green-pale:   #e8f5e9;
+  --border:       #ddd2bf;
+  --border-light: #eee2cf;
+  --text:         #111;
+  --muted:        #555;
+  --amber:        #f59e0b;
+  --red:          #ef4444;
+  --blue:         #3b82f6;
+  --purple:       #8b5cf6;
+  --radius:       14px;
+  --radius-sm:    10px;
+  --shadow:       0 2px 12px rgba(0,0,0,0.06);
+  --shadow-hover: 0 6px 24px rgba(0,0,0,0.10);
+  --font-body:    'DM Sans', Arial, sans-serif;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --transition:   0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ── Scrollbar styling ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ── Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out both;
+}
+
+/* Stagger children animations */
+.stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger > *:nth-child(2) { animation-delay: 0.10s; }
+.stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger > *:nth-child(4) { animation-delay: 0.20s; }
+.stagger > *:nth-child(5) { animation-delay: 0.25s; }
+.stagger > *:nth-child(6) { animation-delay: 0.30s; }
+.stagger > *:nth-child(7) { animation-delay: 0.35s; }
+.stagger > *:nth-child(8) { animation-delay: 0.40s; }
+
+/* ── Loading skeleton ── */
+.skeleton {
+  background: linear-gradient(90deg, #ece4d6 25%, #f5efe3 50%, #ece4d6 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}

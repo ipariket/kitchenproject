@@ -1,0 +1,28 @@
+# Python / Django
+*.pyc
+__pycache__/
+*.pyo
+db.sqlite3
+*.sqlite3
+media/
+staticfiles/
+*.egg-info/
+dist/
+build/
+.eggs/
+venv/
+env/
+.env
+
+# Node / React
+node_modules/
+frontend/build/
+.DS_Store
+npm-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
