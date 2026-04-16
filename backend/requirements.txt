@@ -1,0 +1,14 @@
+# Core Django framework
+Django>=4.2,<5.0
+
+# Django REST Framework — builds REST API endpoints
+djangorestframework>=3.14
+
+# CORS headers — allows React (port 3000) to call Django (port 8000)
+django-cors-headers>=4.0
+
+# Pillow — required for ImageField (processing uploaded images)
+Pillow>=10.0
+
+# Gunicorn — production-grade WSGI server (used in deployment)
+gunicorn>=21.2
