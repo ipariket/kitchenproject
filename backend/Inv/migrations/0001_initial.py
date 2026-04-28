@@ -1,0 +1,61 @@
+from django.conf import settings
+from django.db import migrations, models
+import django.db.models.deletion
+
+class Migration(migrations.Migration):
+    initial = True
+    dependencies = [migrations.swappable_dependency(settings.AUTH_USER_MODEL)]
+    operations = [
+        migrations.CreateModel(name='Tag', fields=[
+            ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False)),
+            ('name', models.CharField(max_length=50, unique=True)),
+        ]),
+        migrations.CreateModel(name='Customer', fields=[
+            ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False)),
+            ('name', models.CharField(max_length=100, null=True)),
+            ('phone', models.CharField(blank=True, max_length=15, null=True)),
+            ('email', models.EmailField(blank=True, max_length=254, null=True)),
+            ('city', models.CharField(blank=True, default='', max_length=100)),
+            ('date_created', models.DateTimeField(auto_now_add=True)),
+            ('user', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+        ]),
+        migrations.CreateModel(name='Restaurant', fields=[
+            ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False)),
+            ('name', models.CharField(max_length=100)),
+            ('description', models.TextField(blank=True, default='')),
+            ('cuisine', models.CharField(blank=True, default='', max_length=100)),
+            ('address', models.CharField(blank=True, default='', max_length=255)),
+            ('city', models.CharField(blank=True, default='', max_length=100)),
+            ('phone', models.CharField(blank=True, default='', max_length=15)),
+            ('image', models.ImageField(blank=True, null=True, upload_to='restaurants/')),
+            ('rating', models.DecimalField(decimal_places=1, default=0.0, max_digits=2)),
+            ('is_active', models.BooleanField(default=True)),
+            ('date_created', models.DateTimeField(auto_now_add=True)),
+            ('owner', models.OneToOneField(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+        ]),
+        migrations.CreateModel(name='Product', fields=[
+            ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False)),
+            ('name', models.CharField(max_length=100)),
+            ('description', models.TextField(blank=True, default='')),
+            ('cuisine', models.CharField(blank=True, default='', max_length=100)),
+            ('price', models.DecimalField(decimal_places=2, default=0.0, max_digits=6)),
+            ('image', models.ImageField(blank=True, null=True, upload_to='products/')),
+            ('quantity', models.IntegerField(default=1)),
+            ('pickup_time', models.CharField(blank=True, default='', max_length=50)),
+            ('pickup_duration_mins', models.IntegerField(default=30)),
+            ('dietary_info', models.CharField(blank=True, default='', max_length=200)),
+            ('date_created', models.DateTimeField(auto_now_add=True, null=True)),
+            ('is_available', models.BooleanField(default=True)),
+            ('restaurant', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='products', to='Inv.restaurant')),
+            ('tags', models.ManyToManyField(blank=True, to='Inv.tag')),
+        ]),
+        migrations.CreateModel(name='Order', fields=[
+            ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False)),
+            ('date_created', models.DateTimeField(auto_now_add=True, null=True)),
+            ('status', models.CharField(choices=[('Pending','Pending'),('Ready for Pickup','Ready for Pickup'),('Picked Up','Picked Up'),('Completed','Completed'),('Cancelled','Cancelled')], default='Pending', max_length=50, null=True)),
+            ('quantity', models.IntegerField(default=1)),
+            ('scheduled_pickup', models.CharField(blank=True, default='', max_length=100)),
+            ('customer', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='Inv.customer')),
+            ('product', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='Inv.product')),
+        ]),
+    ]
